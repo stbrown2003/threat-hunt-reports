@@ -15,8 +15,7 @@
 
 ## 📌 Executive Summary
 
-<Brief, high-level overview of the threat hunt.  
-Answer what happened, why it matters, and what was discovered in 3–4 sentences.>
+Competitor undercut our 6-year shipping contract by exactly 3%. Our supplier contracts and pricing data appeared on underground forums.
 
 ---
 
@@ -30,8 +29,8 @@ Answer what happened, why it matters, and what was discovered in 3–4 sentences
 
 ## 🧭 Scope & Environment
 
-- **Environment:** <Placeholder>  
-- **Data Sources:** <Placeholder>  
+- **Compromised System:** `azuki-sl` (IT admin workstation) 
+- **Data Sources:** Microsoft Sentinel Logs Analytics Workspace
 - **Timeframe:** <2025-11-19 → 2025-11-20>  
 
 ---
@@ -156,7 +155,7 @@ The user account is kenji.sato
 | Username | kenji.sato |
 | Timestamp | 11/19/2025, 6:36:21.026 PM |
 | Process | Remote Desktop Protocol |
-| Attacker IP | 88.97.178.12 |
+| Attacker IP | `88.97.178.12` |
 
 ### 💡 Why it matters
 Discovering the user account that is compromised can lead us the through the trail of the attack
@@ -190,8 +189,8 @@ The command was "ARP.EXE" -a
 | Field | Value |
 |------|-------|
 | Timestamp | 11/19/2025, 7:04:01.773 PM |
-| Process | arp.exe |
-| Command | "ARP.EXE" -a |
+| Process | `arp.exe` |
+| Command | `"ARP.EXE" -a` |
 
 ### 💡 Why it matters
 Attackers scan networks to find spread paths and critical assets. This reconnaissance signals advanced persistent threats.
@@ -226,9 +225,9 @@ C:\ProgramData\WindowsCache
 | Field | Value |
 |------|-------|
 | Timestamp | 11/19/2025, 7:05:33.766 PM |
-| Process | attrib.exe |
-| Command | "attrib.exe" +h +s C:\ProgramData\WindowsCache |
-| Directory | C:\ProgramData\WindowsCache |
+| Process | `attrib.exe` |
+| Command | `"attrib.exe" +h +s C:\ProgramData\WindowsCache` |
+| Directory | `C:\ProgramData\WindowsCache` |
 
 ### 💡 Why it matters
 Adversaries create staging directories for tool deployment and data aggregation. Locating these paths exposes compromise scope and residual threat artifacts.
