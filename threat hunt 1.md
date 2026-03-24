@@ -1,9 +1,6 @@
 <p align="center">
-  <img
-    src="https://github.com/user-attachments/assets/337bb215-8833-4653-b570-93c443bd9c11"
-    width="1200"
-    alt="Threat Hunt Cover Image"
-  />
+<img width="740" height="1110" alt="image" src="https://github.com/user-attachments/assets/67e25d1c-f636-49de-9e47-45b5da02070a" />
+
 </p>
 
 
@@ -15,7 +12,7 @@
 
 ## 📌 Executive Summary
 
-Competitor undercut our 6-year shipping contract by exactly 3%. Our supplier contracts and pricing data appeared on underground forums.
+Investigated a sophisticated cyber intrusion following the discovery that a competitor undercut a 6-year shipping contract by exactly 3%. Investigation revealed that supplier contracts and pricing data had been exfiltrated and appeared on underground forums. 
 
 ---
 
@@ -60,16 +57,23 @@ Competitor undercut our 6-year shipping contract by exactly 3%. Our supplier con
   - [🚩 Flag 18](#-flag-18)
   - [🚩 Flag 19](#-flag-19)
   - [🚩 Flag 20](#-flag-20)
-- [🚨 Detection Gaps & Recommendations](#-detection-gaps--recommendations)
+- [🚨 Detection Recommendations](#-detection-recommendations)
 - [🧾 Final Assessment](#-final-assessment)
-- [📎 Analyst Notes](#-analyst-notes)
 
 ---
 
 ## 🧠 Hunt Overview
 
-<High-level narrative describing the attack lifecycle, key behaviors observed, and why this hunt matters.>
+The attacker executed a complete attack lifecycle demonstrating advanced persistent threat (APT) characteristics:
 
+- Initial Access: RDP connection from `88.97.178.12` using compromised credentials for user kenji.sato
+- Discovery: Network reconnaissance using ARP to enumerate network neighbors
+- Defense Evasion: Created hidden staging directory, disabled Windows Defender for key file types and paths
+- Execution: Downloaded malware using `certutil.exe`, established C2 communications
+- Persistence: Created scheduled task masquerading as 'Windows Update Check'
+- Credential Access: Deployed Mimikatz to dump credentials from LSASS memory
+- Collection & Exfiltration: Compressed sensitive data and exfiltrated via Discord webhook
+- Impact: Cleared Security event logs to hinder investigation
 ---
 
 ## 🧬 MITRE ATT&CK Summary
@@ -833,30 +837,20 @@ DeviceProcessEvents
 
 ---
 
-## 🚨 Detection Gaps & Recommendations
-
-### Observed Gaps
-- <Placeholder>
-- <Placeholder>
-- <Placeholder>
+<summary id="#-detection-recommendations"> ## 🚨 Detection Recommendations </summary>
 
 ### Recommendations
-- <Placeholder>
-- <Placeholder>
-- <Placeholder>
+- Implement MFA for all RDP connections
+- Deploy LSASS protection (Credential Guard, PPL)
+- Monitor `certutil.exe` usage for download activities
+- Alert on Windows Defender exclusion changes
+- Block Discord webhooks at the web proxy
 
 ---
 
-## 🧾 Final Assessment
+<summary id="#-final-assessment"> ## 🧾 Final Assessment </summary>
 
-<Concise executive-style conclusion summarizing risk, attacker sophistication, and defensive posture.>
-
----
-
-## 📎 Analyst Notes
-
-- Report structured for interview and portfolio review  
-- Evidence reproducible via advanced hunting  
-- Techniques mapped directly to MITRE ATT&CK  
-
+- This intrusion demonstrates a methodical, multi-stage attack executed by a skilled adversary with clear objectives. The attacker successfully compromised an IT administrator workstation, established persistence, stole credentials, and exfiltrated sensitive business data while attempting to cover their tracks.
+- The attack leveraged legitimate system tools (certutil, schtasks), disabled security controls, and used cloud services for exfiltration; all techniques designed to evade traditional security controls. The mapping to MITRE ATT&CK framework reveals coverage across multiple tactics from Initial Access through Impact, indicating a comprehensive understanding of enterprise security environments.
+- Immediate remediation is required, followed by systematic improvements to detection capabilities, access controls, and network segmentation to prevent similar incidents in the future.
 ---
