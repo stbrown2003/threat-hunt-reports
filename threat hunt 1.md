@@ -837,9 +837,8 @@ DeviceProcessEvents
 
 ---
 
-<summary id="#-detection-recommendations"> ## 🚨 Detection Recommendations </summary>
+## <summary id="#-detection-recommendations"> <strong>🚨 Detection Recommendations </strong> </summary>
 
-### Recommendations
 - Implement MFA for all RDP connections
 - Deploy LSASS protection (Credential Guard, PPL)
 - Monitor `certutil.exe` usage for download activities
@@ -848,7 +847,7 @@ DeviceProcessEvents
 
 ---
 
-<summary id="#-final-assessment"> ## 🧾 Final Assessment </summary>
+## <summary id="#-final-assessment"> <strong>🧾 Final Assessment</strong> </summary>
 
 - This intrusion demonstrates a methodical, multi-stage attack executed by a skilled adversary with clear objectives. The attacker successfully compromised an IT administrator workstation, established persistence, stole credentials, and exfiltrated sensitive business data while attempting to cover their tracks.
 - The attack leveraged legitimate system tools (certutil, schtasks), disabled security controls, and used cloud services for exfiltration; all techniques designed to evade traditional security controls. The mapping to MITRE ATT&CK framework reveals coverage across multiple tactics from Initial Access through Impact, indicating a comprehensive understanding of enterprise security environments.
