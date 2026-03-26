@@ -80,7 +80,7 @@ The attacker executed a complete attack lifecycle demonstrating advanced persist
 
 | Flag | Technique Category | MITRE ID | Priority |
 |-----:|-------------------|----------|----------|
-| 1 | Remote Services | T1021.001 | High |
+| 1 | Initial Access | TA0001 | High |
 | 2 | Remote Services | T1021.001 | High |
 | 3 | System Network Configuration Discovery | T1016 | Low |
 | 4 | Malware Staging Directory | T1074.001 | Medium |
@@ -110,36 +110,37 @@ _All flags below are collapsible for readability._
 ---
 
 <details>
-<summary id="-flag-1">🚩 <strong>Flag 1: Remote Services </strong></summary>
+<summary id="-flag-1">🚩 <strong>Flag 1: Initial Access </strong></summary>
 
 ### 🎯 Objective
-Find the source IP address of the Remote Desktop Protocol Connection 
+Find the source IP address of the return connection
 ### 📌 Finding
-IP Address of the attacker is 88.97.178.12
+IP Address of the attacker is `159.26.106.98`
 
 ### 🔍 Evidence
 
 | Field | Value |
 |------|-------|
 | Host | azuki-sl |
-| Timestamp | 11/19/2025, 6:36:21.026 PM |
-| Process | Remote Desktop Protocol |
-| Attacker IP | 88.97.178.12 |
+| Timestamp | 11/22/2025, 12:27:53.748 AM |
+| Attacker IP | `159.26.106.98` |
 
 ### 💡 Why it matters
-RDP connections create network logs that show where unauthorized access came from. Identifying the source helps figure out who the attacker is and stop active attacks.
+After establishing initial access, APTs often wait hours or days (dwell time) before continuing operations. They may rotate infrastructure between sessions to avoid detection.
 
 ### 🔧 KQL Query Used
 ``` kql
+// Initial Access
 DeviceLogonEvents
-| where DeviceName == "azuki-sl"
-| where TimeGenerated between (datetime(2025-11-19) .. datetime(2025-11-20))
-| where LogonType  has "Unlock"
-| project TimeGenerated, AccountDomain, AccountName, ActionType, LogonType, RemoteIP, RemoteIPType
+| where DeviceName contains "azuki" 
+| where TimeGenerated between (datetime("2025-11-22") .. datetime("2025-11-23"))
+| where ActionType == "LogonSuccess"
+| where RemoteIPType == "Public"
+| project TimeGenerated, DeviceName, AccountName, ActionType, RemoteIP, RemoteDeviceName
 ```
 
 ### 🖼️ Screenshot
-<img width="1573" height="871" alt="image" src="https://github.com/user-attachments/assets/f0020aa8-6265-44f0-86cb-d749b4b9b475" />
+<img width="1573" height="887" alt="image" src="https://github.com/user-attachments/assets/00dd22e1-d703-4b7d-a265-6c18dc8a9970" />
 
 </details>
 
