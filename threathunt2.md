@@ -110,7 +110,7 @@ _All flags below are collapsible for readability._
 ---
 
 <details>
-<summary id="-flag-1">🚩 <strong>Flag 1: Initial Access </strong></summary>
+<summary id="-flag-1">🚩 <strong>Flag 1: Return Connection Source </strong></summary>
 
 ### 🎯 Objective
 Find the source IP address of the return connection
